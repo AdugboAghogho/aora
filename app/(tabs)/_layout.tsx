@@ -9,20 +9,24 @@ import React from "react";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View className="flex items-center justify-center gap-2">
-      <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-6 h-6"
-      />
-      <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
-        style={{ color: color }}
-      >
-        {name}
-      </Text>
+    <View style={{ alignItems: 'center', justifyContent: 'center', gap: 8, paddingTop: 40 }}>
+        <Image
+            source={icon}
+            resizeMode="contain"
+            tintColor={color}
+            style={{ width: 24, height: 24 }} // Tailwind's w-6 and h-6 are 24px
+        />
+        <Text
+            style={{
+                fontFamily: focused ? 'Poppins-SemiBold' : 'Poppins-Regular', // Replace with your actual font names
+                fontSize: 12, // Tailwind's text-xs is 12px
+                color: color,
+            }}
+            >
+            {name}
+        </Text>
     </View>
+
   );
 };
 

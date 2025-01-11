@@ -2,9 +2,11 @@ import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 import { View, Text, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import './output.css'; // Adjust the path if needed
+import './globals.css'; // Adjust the path if needed
 
 import { images } from "../constants";
-// import { CustomButton, Loader } from "../components";
+import { CustomButton, Loader } from "../components";
 // import { useGlobalContext } from "../context/GlobalProvider";
 
 const Welcome = () => {
@@ -88,11 +90,11 @@ const Welcome = () => {
             Exploration with Aora
           </Text>
 
-          {/* <CustomButton
+          <CustomButton
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
             containerStyles={{ width: "100%", marginTop: 28 }}
-          /> */}
+          />
         </View>
       </ScrollView>
 
