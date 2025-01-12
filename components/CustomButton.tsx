@@ -4,7 +4,7 @@ const CustomButton = ({
   title,
   handlePress,
   containerStyles,
-  textStyles,
+  textStyles = {}, // Default to an empty object
   isLoading,
 }) => {
   return (
@@ -29,9 +29,9 @@ const CustomButton = ({
         />
       )}
     </TouchableOpacity>
-
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
