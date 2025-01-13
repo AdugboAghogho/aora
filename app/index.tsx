@@ -7,16 +7,16 @@ import './globals.css'; // Adjust the path if needed
 
 import { images } from "../constants";
 import { CustomButton, Loader } from "../components";
-// import { useGlobalContext } from "../context/GlobalProvider";
+import { useGlobalContext } from "../context/GlobalProvider";
 
 const Welcome = () => {
-//   const { loading, isLogged } = useGlobalContext();
+  const { loading, isLogged } = useGlobalContext();
 
-//   if (!loading && isLogged) return <Redirect href="/home" />;
+  if (!loading && isLogged) return <Redirect href="/home" />;
 
   return (
     <SafeAreaView style={{ backgroundColor: "#161622", flex: 1 }}>
-      {/* <Loader isLoading={loading} /> */}
+      <Loader isLoading={loading} />
 
       <ScrollView
         contentContainerStyle={{
