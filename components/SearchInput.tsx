@@ -9,9 +9,28 @@ const SearchInput = ({ initialQuery }) => {
   const [query, setQuery] = useState(initialQuery || "");
 
   return (
-    <View className="flex flex-row items-center space-x-4 w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary">
+    <View
+      style={{
+        flexDirection: "row", // Tailwind's flex flex-row
+        alignItems: "center", // Tailwind's items-center
+        gap: 16, // Tailwind's space-x-4
+        width: "100%", // Tailwind's w-full
+        height: 64, // Tailwind's h-16
+        paddingHorizontal: 16, // Tailwind's px-4
+        backgroundColor: "#1C1C28", // Tailwind's bg-black-100
+        borderRadius: 16, // Tailwind's rounded-2xl
+        borderWidth: 2, // Tailwind's border-2
+        borderColor: "#2A2A3A", // Tailwind's border-black-200
+      }}
+    >
       <TextInput
-        className="text-base mt-0.5 text-white flex-1 font-pregular"
+        style={{
+          fontSize: 16, // Tailwind's text-base
+          marginTop: 2, // Tailwind's mt-0.5
+          color: "#FFFFFF", // Tailwind's text-white
+          flex: 1, // Tailwind's flex-1
+          fontFamily: "Poppins-Regular", // Tailwind's font-pregular
+        }}
         value={query}
         placeholder="Search a video topic"
         placeholderTextColor="#CDCDE0"
@@ -30,7 +49,14 @@ const SearchInput = ({ initialQuery }) => {
           else router.push(`/search/${query}`);
         }}
       >
-        <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
+        <Image
+          source={icons.search}
+          style={{
+            width: 20, // Tailwind's w-5
+            height: 20, // Tailwind's h-5
+          }}
+          resizeMode="contain"
+        />
       </TouchableOpacity>
     </View>
   );

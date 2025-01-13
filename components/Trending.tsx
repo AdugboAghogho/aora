@@ -5,7 +5,9 @@ import {
   FlatList,
   Image,
   ImageBackground,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 import { icons } from "../constants";
@@ -33,14 +35,20 @@ const TrendingItem = ({ activeItem, item }) => {
 
   return (
     <Animatable.View
-      className="mr-5"
+      style={{ marginRight: 20 }} // Tailwind's mr-5
       animation={activeItem === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
       {play ? (
         <Video
           source={{ uri: item.video }}
-          className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
+          style={{
+            width: 208, // Tailwind's w-52
+            height: 288, // Tailwind's h-72
+            borderRadius: 33,
+            marginTop: 12, // Tailwind's mt-3
+            backgroundColor: "rgba(255, 255, 255, 0.1)", // Tailwind's bg-white/10
+          }}
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
@@ -52,7 +60,11 @@ const TrendingItem = ({ activeItem, item }) => {
         />
       ) : (
         <TouchableOpacity
-          className="relative flex justify-center items-center"
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+          }} // Tailwind's relative flex justify-center items-center
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
         >
@@ -60,13 +72,27 @@ const TrendingItem = ({ activeItem, item }) => {
             source={{
               uri: item.thumbnail,
             }}
-            className="w-52 h-72 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
+            style={{
+              width: 208, // Tailwind's w-52
+              height: 288, // Tailwind's h-72
+              borderRadius: 33, // Tailwind's rounded-[33px]
+              marginVertical: 20, // Tailwind's my-5
+              overflow: "hidden",
+              shadowColor: "#000000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.4, // Tailwind's shadow-lg shadow-black/40
+              shadowRadius: 4,
+            }}
             resizeMode="cover"
           />
 
           <Image
             source={icons.play}
-            className="w-12 h-12 absolute"
+            style={{
+              width: 48, // Tailwind's w-12
+              height: 48, // Tailwind's h-12
+              position: "absolute", // Tailwind's absolute
+            }}
             resizeMode="contain"
           />
         </TouchableOpacity>
@@ -90,13 +116,16 @@ const Trending = ({ posts }) => {
       horizontal
       keyExtractor={(item) => item.$id}
       renderItem={({ item }) => (
-        <TrendingItem activeItem={activeItem} item={item} />
+        <Text style={{ fontSize: 24, color: "#FFF" }}>
+          {item.id}
+        </Text>
+        // <TrendingItem activeItem={activeItem} item={item} />
       )}
-      onViewableItemsChanged={viewableItemsChanged}
-      viewabilityConfig={{
-        itemVisiblePercentThreshold: 70,
-      }}
-      contentOffset={{ x: 170 }}
+      // onViewableItemsChanged={viewableItemsChanged}
+      // viewabilityConfig={{
+      //   itemVisiblePercentThreshold: 70,
+      // }}
+      // contentOffset={{ x: 170 }}
     />
   );
 };

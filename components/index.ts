@@ -5,7 +5,7 @@ import CustomButton from "./CustomButton";
 import Loader from "./Loader";
 import Trending from "./Trending";
 import SearchInput from "./SearchInput";
-// import EmptyState from "./EmptyState";
+import EmptyState from "./EmptyState";
 
 export {
   VideoCard,
@@ -15,5 +15,5 @@ export {
   Loader,
   Trending,
   SearchInput,
-//   EmptyState,
+  EmptyState,
 };

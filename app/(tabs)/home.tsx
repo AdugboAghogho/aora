@@ -19,18 +19,12 @@ const Home = () => {
     setRefreshing(false);
   };
 
-  // one flatlist
-  // with list header
-  // and horizontal flatlist
-
-  //  we cannot do that with just scrollview as there's both horizontal and vertical scroll (two flat lists, within trending)
-
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView style={{ backgroundColor: "#161622", flex: 1 }}>
       <FlatList
         // data={posts}
-        data={[{ id:1}, { id: 2}, { id: 3}]}
-        keyExtractor={(item) => item.id.toString()} 
+        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        keyExtractor={(item) => item.id.toString()}
         // keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           // <VideoCard
@@ -40,24 +34,53 @@ const Home = () => {
           //   creator={item.creator.username}
           //   avatar={item.creator.avatar}
           // />
-          <Text className="text-2xl">{item.id}</Text>
+          <Text style={{ fontSize: 24, color: '#FFF' }}>{item.id}</Text>
         )}
         ListHeaderComponent={() => (
-          <View className="flex my-6 px-4 space-y-6">
-            <View className="flex justify-between items-start flex-row mb-6">
+          <View
+            style={{
+              marginVertical: 24, // Tailwind's my-6
+              paddingHorizontal: 16, // Tailwind's px-4
+              gap: 24, // Tailwind's space-y-6
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row", // Tailwind's flex-row
+                justifyContent: "space-between", // Tailwind's justify-between
+                alignItems: "flex-start", // Tailwind's items-start
+                marginBottom: 24, // Tailwind's mb-6
+              }}
+            >
               <View>
-                <Text className="font-pmedium text-sm text-gray-100">
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Medium", // Tailwind's font-pmedium
+                    fontSize: 14, // Tailwind's text-sm
+                    color: "#CBD5E0", // Tailwind's text-gray-100
+                  }}
+                >
                   Welcome Back
                 </Text>
-                <Text className="text-2xl font-psemibold text-white">
+                <Text
+                  style={{
+                    fontFamily: "Poppins-SemiBold", // Tailwind's font-psemibold
+                    fontSize: 24, // Tailwind's text-2xl
+                    color: "#FFFFFF", // Tailwind's text-white
+                  }}
+                >
                   JSMastery
                 </Text>
               </View>
 
-              <View className="mt-1.5">
+              <View style={{ marginTop: 6 }}>
+                {/* Tailwind's mt-1.5 */}
                 <Image
                   source={images.logoSmall}
-                  className="w-9 h-10"
+                  style={{
+                    width: 36, // Tailwind's w-9
+                    height: 40, // Tailwind's h-10
+                  }}
                   resizeMode="contain"
                 />
               </View>
@@ -66,26 +89,39 @@ const Home = () => {
             <SearchInput initialQuery={undefined} />
             {/* <SearchInput /> */}
 
-            <View className="w-full flex-1 pt-5 pb-8">
-              <Text className="text-lg font-pregular text-gray-100 mb-3">
+            <View
+              style={{
+                width: "100%", // Tailwind's w-full
+                paddingTop: 20, // Tailwind's pt-5
+                paddingBottom: 32, // Tailwind's pb-8
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Poppins-Regular", // Tailwind's font-pregular
+                  fontSize: 18, // Tailwind's text-lg
+                  color: "#CBD5E0", // Tailwind's text-gray-100
+                  marginBottom: 12, // Tailwind's mb-3
+                }}
+              >
                 Latest Videos
               </Text>
 
-              <Trending posts={[{ id:1}, { id: 2}, { id: 3}]} />
-              {/* <Trending posts={[{ id:1}, { id: 2}, { id: 3}] ?? []} /> */}
+              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
+              {/* <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} /> */}
               {/* <Trending posts={latestPosts ?? []} /> */}
             </View>
           </View>
         )}
-        // ListEmptyComponent={() => (
-        //   <EmptyState
-        //     title="No Videos Found"
-        //     subtitle="No videos created yet"
-        //   />
-        // )}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        ListEmptyComponent={() => (
+          <EmptyState
+            title="No Videos Found"
+            subtitle="No videos created yet"
+          />
+        )} 
+        // refreshControl={
+        //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        // }
       />
     </SafeAreaView>
   );
