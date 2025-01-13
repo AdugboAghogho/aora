@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import { images } from "../../constants";
-// import { createUser } from "../../lib/appwrite";
+import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 // import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -27,10 +27,13 @@ const SignUp = () => {
     setSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
-      setIsLogged(true);
+      // setUser(result);
+      // setIsLogged(true);
 
       router.replace("/home");
+      router.push("/home");
+      
+
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
@@ -90,12 +93,14 @@ const SignUp = () => {
             otherStyles={{ marginTop: 28 }}
           />
 
-          <CustomButton
-            title="Sign Up"
-            handlePress={submit}
-            containerStyles={{ marginTop: 28 }}
-            isLoading={isSubmitting}
-          />
+          <Link href="/home">
+            <CustomButton
+              title="Sign Up"
+              handlePress={submit}
+              containerStyles={{ width: "100%", marginTop: 28 }}
+              isLoading={isSubmitting}
+            />
+          </Link>
 
           <View
             style={{

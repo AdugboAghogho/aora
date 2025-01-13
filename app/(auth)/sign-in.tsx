@@ -5,7 +5,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import { images } from "../../constants";
 import { CustomButton, FormField } from "../../components";
-// import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { getCurrentUser, signIn } from "../../lib/appwrite";
 // import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
@@ -27,8 +27,8 @@ const SignIn = () => {
     try {
       await signIn(form.email, form.password);
       const result = await getCurrentUser();
-      setUser(result);
-      setIsLogged(true);
+      // setUser(result);
+      // setIsLogged(true);
 
       Alert.alert("Success", "User signed in successfully");
       router.replace("/home");
@@ -84,12 +84,15 @@ const SignIn = () => {
             otherStyles={{ marginTop: 28 }}
           />
 
-          <CustomButton
-            title="Sign In"
-            handlePress={submit}
-            containerStyles={{ marginTop: 28 }}
-            isLoading={isSubmitting}
-          />
+          <Link href="/home">
+            <CustomButton
+              title="Sign Up"
+              handlePress={submit}
+              containerStyles={{ width: "100%", marginTop: 28 }}
+              isLoading={isSubmitting}
+            />
+          </Link>
+
 
           <View
             style={{
