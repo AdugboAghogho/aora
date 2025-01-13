@@ -93,14 +93,14 @@ const SignUp = () => {
             otherStyles={{ marginTop: 28 }}
           />
 
-          <Link href="/home">
+          {/* <Link href="/home"> */}
             <CustomButton
               title="Sign Up"
               handlePress={submit}
               containerStyles={{ width: "100%", marginTop: 28 }}
               isLoading={isSubmitting}
             />
-          </Link>
+          {/* </Link> */}
 
           <View
             style={{

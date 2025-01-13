@@ -93,8 +93,10 @@ const Welcome = () => {
           <CustomButton
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
-            containerStyles={{ width: "100%", marginTop: 28 }}
+            containerStyles={{ width: "100%", marginTop: 28 }} 
+            isLoading={undefined}         
           />
+
         </View>
       </ScrollView>
 
