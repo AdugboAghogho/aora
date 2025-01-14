@@ -31,6 +31,7 @@ const SignIn = () => {
       setIsLogged(true);
 
       Alert.alert("Success", "User signed in successfully");
+      console.log("Redirecting to /home...");
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -49,6 +50,7 @@ const SignIn = () => {
             paddingHorizontal: 16,
             marginVertical: 24,
             minHeight: Dimensions.get("window").height - 100,
+            
           }}
         >
           <Image
@@ -90,6 +92,7 @@ const SignIn = () => {
               handlePress={submit}
               containerStyles={{ width: "100%", marginTop: 28 }}
               isLoading={isSubmitting}
+              style={{ pointerEvents: "none" }}
             />
           {/* </Link>s */}
 

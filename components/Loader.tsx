@@ -8,9 +8,14 @@ const Loader = ({ isLoading }) => {
 
   return (
     <View
-      className="absolute flex justify-center items-center w-full h-full bg-primary/60 z-10"
       style={{
+        position: "absolute",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
         height: screenHeight,
+        backgroundColor: "rgba(0, 0, 0, 0.6)", // Matches bg-primary/60
+        zIndex: 10,
       }}
     >
       <ActivityIndicator
