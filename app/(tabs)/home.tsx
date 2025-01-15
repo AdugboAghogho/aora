@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 
 import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
+import { getAllPosts, getCurrentUser, getLatestPosts } from "../../lib/appwrite";
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser = await getCurrentUser();
+      setUser(currentUser);
+    };
+    
+    fetchUser();
+  }, []);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -22,19 +32,16 @@ const Home = () => {
   return (
     <SafeAreaView style={{ backgroundColor: "#161622", flex: 1 }}>
       <FlatList
-        // data={posts}
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-        keyExtractor={(item) => item.id.toString()}
-        // keyExtractor={(item) => item.$id}
+        data={posts}
+        keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          // <VideoCard
-          //   title={item.title}
-          //   thumbnail={item.thumbnail}
-          //   video={item.video}
-          //   creator={item.creator.username}
-          //   avatar={item.creator.avatar}
-          // />
-          <Text style={{ fontSize: 24, color: '#FFF' }}>{item.id}</Text>
+          <VideoCard
+            title={item.title}
+            thumbnail={item.thumbnail}
+            video={item.video}
+            creator={item.creator.username}
+            avatar={item.creator.avatar}
+          />
         )}
         ListHeaderComponent={() => (
           <View
@@ -56,20 +63,21 @@ const Home = () => {
                 <Text
                   style={{
                     fontFamily: "Poppins-Medium", // Tailwind's font-pmedium
-                    fontSize: 14, // Tailwind's text-sm
+                    fontSize: 17, // Tailwind's text-sm
                     color: "#CBD5E0", // Tailwind's text-gray-100
                   }}
                 >
-                  Welcome Back
+                  Welcome Back👋😊
                 </Text>
                 <Text
                   style={{
                     fontFamily: "Poppins-SemiBold", // Tailwind's font-psemibold
-                    fontSize: 24, // Tailwind's text-2xl
+                    fontSize: 27, // Tailwind's text-2xl
                     color: "#FFFFFF", // Tailwind's text-white
                   }}
                 >
-                  JSMastery
+                  {user.username}
+                  {/* {user ? user.username : "Loading..."} */}
                 </Text>
               </View>
 
@@ -107,9 +115,8 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
-              {/* <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} /> */}
-              {/* <Trending posts={latestPosts ?? []} /> */}
+              
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
