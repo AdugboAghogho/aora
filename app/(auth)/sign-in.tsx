@@ -92,7 +92,6 @@ const SignIn = () => {
               handlePress={submit}
               containerStyles={{ width: "100%", marginTop: 28 }}
               isLoading={isSubmitting}
-              style={{ pointerEvents: "none" }}
             />
           {/* </Link>s */}
 
