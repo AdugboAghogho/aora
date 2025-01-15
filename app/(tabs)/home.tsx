@@ -76,8 +76,7 @@ const Home = () => {
                     color: "#FFFFFF", // Tailwind's text-white
                   }}
                 >
-                  {user.username}
-                  {/* {user ? user.username : "Loading..."} */}
+                   {user ? user.username : "Loading..."} 
                 </Text>
               </View>
 

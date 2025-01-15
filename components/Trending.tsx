@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { ResizeMode, Video } from "expo-av";
+import { VideoView } from "expo-video";
 import * as Animatable from "react-native-animatable";
 import {
   FlatList,
@@ -40,8 +40,8 @@ const TrendingItem = ({ activeItem, item }) => {
       duration={500}
     >
       {play ? (
-        <Video
-          source={{ uri: item.video }}
+        <VideoView
+          src={{ uri: item.video }}
           style={{
             width: 208, // Tailwind's w-52
             height: 288, // Tailwind's h-72
@@ -49,13 +49,10 @@ const TrendingItem = ({ activeItem, item }) => {
             marginTop: 12, // Tailwind's mt-3
             backgroundColor: "rgba(255, 255, 255, 0.1)", // Tailwind's bg-white/10
           }}
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
+          resizeMode="contain"
+          controls
+          onEnded={() => {
+            setPlay(false);
           }}
         />
       ) : (
