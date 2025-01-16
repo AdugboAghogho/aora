@@ -1,58 +1,52 @@
-import { useCallback, useState } from "react";
-import { VideoView } from "expo-video";
-import * as Animatable from "react-native-animatable";
-import {
-  FlatList,
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-
-import { icons } from "../constants";
+import React, { useState, useCallback } from 'react';
+import { FlatList, Image, ImageBackground, TouchableOpacity, View } from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { icons } from '../constants';
+import { ResizeMode, Video } from 'expo-av';
 
 const zoomIn = {
-  0: {
-    scale: 0.9,
-  },
-  1: {
-    scale: 1.1,
-  },
+  from: { scale: 0.9 },
+  to: { scale: 1 },
 };
 
 const zoomOut = {
-  0: {
-    scale: 1,
-  },
-  1: {
-    scale: 0.9,
-  },
+  from: { scale: 1 },
+  to: { scale: 0.9 },
 };
 
-const TrendingItem = ({ activeItem, item }) => {
+interface TrendingItemProps {
+  active: boolean;
+  item: any;
+  onPress: () => void;
+}
+
+const TrendingItem: React.FC<TrendingItemProps> = ({ active, item, onPress }) => {
   const [play, setPlay] = useState(false);
 
   return (
     <Animatable.View
       style={{ marginRight: 20 }} // Tailwind's mr-5
-      animation={activeItem === item.$id ? zoomIn : zoomOut}
+      animation={active ? zoomIn : zoomOut}
       duration={500}
     >
       {play ? (
-        <VideoView
-          src={{ uri: item.video }}
+        <Video
+          source={{ uri: item.video }}
+          resizeMode={ResizeMode.CONTAIN}
+          shouldPlay
+          // useNativeDriver // Remove if not strictly required
+          onPlaybackStatusUpdate={(status) => {
+            if (status.didJustFinish) {
+              setPlay(false);
+            }
+          }}
+          onError={(error) => console.error('Video playback error:', error)}
           style={{
             width: 208, // Tailwind's w-52
             height: 288, // Tailwind's h-72
             borderRadius: 33,
             marginTop: 12, // Tailwind's mt-3
             backgroundColor: "rgba(255, 255, 255, 0.1)", // Tailwind's bg-white/10
-          }}
-          resizeMode="contain"
-          controls
-          onEnded={() => {
-            setPlay(false);
           }}
         />
       ) : (
@@ -63,12 +57,10 @@ const TrendingItem = ({ activeItem, item }) => {
             position: "relative",
           }} // Tailwind's relative flex justify-center items-center
           activeOpacity={0.7}
-          onPress={() => setPlay(true)}
+          onPress={() => onPress()}
         >
           <ImageBackground
-            source={{
-              uri: item.thumbnail,
-            }}
+            source={{ uri: item.thumbnail }}
             style={{
               width: 208, // Tailwind's w-52
               height: 288, // Tailwind's h-72
@@ -82,7 +74,6 @@ const TrendingItem = ({ activeItem, item }) => {
             }}
             resizeMode="cover"
           />
-
           <Image
             source={icons.play}
             style={{
@@ -99,27 +90,27 @@ const TrendingItem = ({ activeItem, item }) => {
 };
 
 const Trending = ({ posts }) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+  const [activeItem, setActiveItem] = useState(posts[1]);
 
-  const viewableItemsChanged = useCallback(({ viewableItems }) => {
+  const handleViewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
-      setActiveItem(viewableItems[0].key);
+      setActiveItem(viewableItems[0].item.$id);
     }
   }, []);
 
   return (
     <FlatList
       data={posts}
-      horizontal
-      keyExtractor={(item) => item.$id}
+      keyExtractor={(item) => item.$id} // Assuming `$id` is unique for each item
       renderItem={({ item }) => (
-        <TrendingItem activeItem={activeItem} item={item} />
+        <TrendingItem active={activeItem === item.$id} item={item} onPress={() => handleActiveItem(item.$id)} />
       )}
-      onViewableItemsChanged={viewableItemsChanged}
+      onViewableItemsChanged={handleViewableItemsChanged}
       viewabilityConfig={{
         itemVisiblePercentThreshold: 70,
       }}
       contentOffset={{ x: 170 }}
+      horizontal
     />
   );
 };

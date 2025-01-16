@@ -16,7 +16,7 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "package": "com.jsm_kelvin.aora"
+        "package": "com.jsm_kelvin.aora"        
       }
     },
     "web": {
@@ -26,23 +26,25 @@
       "package": "com.jsm_kelvin.aora"
     },
     "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ],
-        
-      "expo-video",
-      {
-        "supportsBackgroundPlayback": true,
-        "supportsPictureInPicture": true
-      }
-    ],
+  "expo-router",
+  [
+    "expo-splash-screen",
+    {
+      "image": "../assets/splash-icon.png",
+      "imageWidth": 200,
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    }
+  ],
+  [
+    "expo-video",
+    {
+      "supportsBackgroundPlayback": true,
+      "supportsPictureInPicture": true
+    }
+  ]
+],
+
     "experiments": {
       "typedRoutes": true
     }

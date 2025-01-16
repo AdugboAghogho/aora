@@ -88,7 +88,7 @@ const SignIn = () => {
 
           {/* <Link href="/home"> */}
             <CustomButton
-              title="Sign Up"
+              title="Sign In"
               handlePress={submit}
               containerStyles={{ width: "100%", marginTop: 28 }}
               isLoading={isSubmitting}
