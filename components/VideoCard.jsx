@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { ResizeMode, Video } from "expo-av";
+import { useVideoPlayer, VideoView } from "expo-video"; // Import from expo-video
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import { icons } from "../constants";
 
 const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
   const [play, setPlay] = useState(false);
+
+  // Initialize the video player
+  const player = useVideoPlayer(video, (player) => {
+    player.loop = false; // Disable looping
+    if (play) {
+      player.play(); // Autoplay when `play` is true
+    }
+  });
 
   return (
     <View style={{ flex: 1, flexDirection: "column", alignItems: "center", paddingBottom: 22 }}>
@@ -28,18 +36,27 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
       </View>
 
       {play ? (
-        <Video
-          source={{ uri: video }}
-          style={{ width: "100%", height: 200, borderRadius: 10, marginTop: 15 }}
-          resizeMode={ResizeMode.CONTAIN}
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
-        />
+        <View style={{ width: "100%", height: 200, borderRadius: 10, marginTop: 15, overflow: "hidden" }}>
+          <VideoView
+            style={{ width: "100%", height: "100%" }}
+            player={player}
+            allowsFullscreen
+            allowsPictureInPicture
+          />
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => {
+              if (player.playing) {
+                player.pause();
+              } else {
+                player.play();
+              }
+            }}
+            style={{ position: "absolute", top: "50%", left: "50%", transform: [{ translateX: -24 }, { translateY: -24 }] }}
+          >
+            <Image source={player.playing ? icons.pause : icons.play} style={{ width: 48, height: 48, resizeMode: "contain" }} />
+          </TouchableOpacity>
+        </View>
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
