@@ -8,80 +8,34 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
   const [play, setPlay] = useState(false);
 
   return (
-    <View style={{ flexDirection: "column", alignItems: "center", paddingHorizontal: 16, marginBottom: 56 }}>
-      {/* Header Section */}
-      <View style={{ flexDirection: "row", alignItems: "flex-start", gap: 12 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-          {/* Avatar */}
-          <View
-            style={{
-              width: 46,
-              height: 46,
-              borderRadius: 8,
-              borderWidth: 1,
-              borderColor: "#8F8FDF", // Secondary color
-              justifyContent: "center",
-              alignItems: "center",
-              padding: 1,
-            }}
-          >
+    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", paddingBottom: 22 }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <View style={{ flex: 1, justifyContent: "center", flexDirection: "row" }}>
+          <View style={{ width: 46, height: 46, borderRadius: 50, borderWidth: 1, borderColor: "#ccc", justifyContent: "center", alignItems: "center" }}>
             <Image
               source={{ uri: avatar }}
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: 8,
-              }}
-              resizeMode="cover"
+              style={{ width: "100%", height: "100%", borderRadius: 50, resizeMode: "cover" }}
             />
           </View>
-
-          {/* Title and Creator */}
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text
-              style={{
-                fontFamily: "Poppins-SemiBold",
-                fontSize: 14,
-                color: "#FFFFFF",
-              }}
-              numberOfLines={1}
-            >
-              {title}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Poppins-Regular",
-                fontSize: 12,
-                color: "#A1A1AA", // Gray text
-              }}
-              numberOfLines={1}
-            >
-              {creator}
-            </Text>
+          <View style={{ flex: 1, marginLeft: 10, justifyContent: "center" }}>
+            <Text style={{ fontSize: 14, fontWeight: "bold", color: "white", numberOfLines: 1 }}>{title}</Text>
+            <Text style={{ fontSize: 12, color: "#ccc", numberOfLines: 1 }}>{creator}</Text>
           </View>
         </View>
-
-        {/* Menu Icon */}
-        <View style={{ paddingTop: 8 }}>
-          <Image source={icons.menu} style={{ width: 20, height: 20 }} resizeMode="contain" />
+        <View style={{ paddingTop: 6 }}>
+          <Image source={icons.menu} style={{ width: 25, height: 25, resizeMode: "contain" }} />
         </View>
       </View>
 
-      {/* Video/Thumbnail Section */}
       {play ? (
         <Video
           source={{ uri: video }}
-          style={{
-            width: "100%",
-            height: 240, // Tailwind's h-60
-            borderRadius: 16, // Tailwind's rounded-xl
-            marginTop: 12, // Tailwind's mt-3
-          }}
+          style={{ width: "100%", height: 200, borderRadius: 10, marginTop: 15 }}
           resizeMode={ResizeMode.CONTAIN}
           useNativeControls
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
-            if (status.isLoaded && status.didJustFinish) {
+            if (status.didJustFinish) {
               setPlay(false);
             }
           }}
@@ -90,35 +44,13 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
-          style={{
-            width: "100%",
-            height: 240, // Tailwind's h-60
-            borderRadius: 16, // Tailwind's rounded-xl
-            marginTop: 12, // Tailwind's mt-3
-            position: "relative",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+          style={{ width: "100%", height: 200, borderRadius: 10, marginTop: 15, position: "relative", justifyContent: "center", alignItems: "center" }}
         >
           <Image
             source={{ uri: thumbnail }}
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 16,
-            }}
-            resizeMode="cover"
+            style={{ width: "100%", height: "100%", borderRadius: 10, resizeMode: "cover" }}
           />
-
-          <Image
-            source={icons.play}
-            style={{
-              width: 48, // Tailwind's w-12
-              height: 48, // Tailwind's h-12
-              position: "absolute",
-            }}
-            resizeMode="contain"
-          />
+          <Image source={icons.play} style={{ width: 48, height: 48, position: "absolute", resizeMode: "contain" }} />
         </TouchableOpacity>
       )}
     </View>
