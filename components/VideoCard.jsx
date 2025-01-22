@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useVideoPlayer, VideoView } from "expo-video"; // Import from expo-video
 import { View, Text, TouchableOpacity, Image } from "react-native";
 
@@ -6,14 +6,34 @@ import { icons } from "../constants";
 
 const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
   const [play, setPlay] = useState(false);
+  const [showControls, setShowControls] = useState(true); // Controls visibility of play/pause icon
 
   // Initialize the video player
   const player = useVideoPlayer(video, (player) => {
     player.loop = false; // Disable looping
-    if (play) {
-      player.play(); // Autoplay when `play` is true
-    }
   });
+
+  // Automatically play the video when `play` is true
+  useEffect(() => {
+    if (play) {
+      player.play();
+      setShowControls(false); // Hide controls when video starts playing
+    } else {
+      player.pause();
+      setShowControls(true); // Show controls when video is paused
+    }
+  }, [play]);
+
+  // Toggle play/pause when the video is clicked
+  const handleVideoPress = () => {
+    if (player.playing) {
+      player.pause();
+      setShowControls(true); // Show controls when video is paused
+    } else {
+      player.play();
+      setShowControls(false); // Hide controls when video starts playing
+    }
+  };
 
   return (
     <View style={{ flex: 1, flexDirection: "column", alignItems: "center", paddingBottom: 22 }}>
@@ -37,24 +57,23 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
 
       {play ? (
         <View style={{ width: "100%", height: 200, borderRadius: 10, marginTop: 15, overflow: "hidden" }}>
-          <VideoView
-            style={{ width: "100%", height: "100%" }}
-            player={player}
-            allowsFullscreen
-            allowsPictureInPicture
-          />
           <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              if (player.playing) {
-                player.pause();
-              } else {
-                player.play();
-              }
-            }}
-            style={{ position: "absolute", top: "50%", left: "50%", transform: [{ translateX: -24 }, { translateY: -24 }] }}
+            activeOpacity={1} // Ensure the entire video area is clickable
+            onPress={handleVideoPress}
+            style={{ width: "100%", height: "100%" }}
           >
-            <Image source={player.playing ? icons.pause : icons.play} style={{ width: 48, height: 48, resizeMode: "contain" }} />
+            <VideoView
+              style={{ width: "100%", height: "100%" }}
+              player={player}
+              allowsFullscreen
+              allowsPictureInPicture
+            />
+            {showControls && ( // Show play/pause icon only when `showControls` is true
+              <Image
+                source={player.playing ? icons.pause : icons.play}
+                style={{ width: 48, height: 48, position: "absolute", top: "50%", left: "50%", transform: [{ translateX: -24 }, { translateY: -24 }], resizeMode: "contain" }}
+              />
+            )}
           </TouchableOpacity>
         </View>
       ) : (
