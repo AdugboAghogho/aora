@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useVideoPlayer, VideoView } from "expo-video"; // Import from expo-video
 import * as Animatable from "react-native-animatable";
-import { FlatList, Image, ImageBackground, TouchableOpacity, View, StyleSheet } from "react-native";
+import {
+  FlatList,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { icons } from "../constants";
 
@@ -36,20 +42,20 @@ const TrendingItem = ({ activeItem, item }) => {
 
   return (
     <Animatable.View
-      style={{ marginRight: 20 }} // Replaced className="mr-5"
-      animation={activeItem === item.$id ? zoomIn : zoomOut}
+      style={{ marginRight: 25, ...(activeItem === item.$id ? zoomIn : zoomOut) }}
+      animation="zoomIn"
       duration={500}
     >
       {play ? (
-        <View style={styles.videoContainer}> {/* Replaced className="w-52 h-72 rounded-[33px] mt-3 bg-white/10 overflow-hidden" */}
+        <View style={styles.videoContainer}>
           <VideoView
-            style={styles.video} // Replaced className="w-full h-full"
+            style={styles.video}
             player={player}
             allowsFullscreen
             allowsPictureInPicture
           />
           <TouchableOpacity
-            style={styles.playPauseButton} // Replaced className="absolute top-1/2 left-1/2"
+            style={styles.playPauseButton}
             activeOpacity={0.7}
             onPress={() => {
               if (player.playing) {
@@ -61,28 +67,26 @@ const TrendingItem = ({ activeItem, item }) => {
           >
             <Image
               source={player.playing ? icons.pause : icons.play}
-              style={styles.playPauseIcon} // Replaced className="w-12 h-12"
+              style={styles.playPauseIcon}
               resizeMode="contain"
             />
           </TouchableOpacity>
         </View>
       ) : (
         <TouchableOpacity
-          style={styles.thumbnailContainer} // Replaced className="relative flex justify-center items-center"
+          style={styles.thumbnailContainer}
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
         >
           <ImageBackground
-            source={{
-              uri: item.thumbnail,
-            }}
-            style={styles.thumbnail} // Replaced className="w-52 h-72 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
+            source={{ uri: item.thumbnail }}
+            style={styles.thumbnail}
             resizeMode="cover"
           />
 
           <Image
             source={icons.play}
-            style={styles.playIcon} // Replaced className="w-12 h-12 absolute"
+            style={styles.playIcon}
             resizeMode="contain"
           />
         </TouchableOpacity>
@@ -94,21 +98,20 @@ const TrendingItem = ({ activeItem, item }) => {
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]?.$id);
 
-  const viewableItemsChanged = ({ viewableItems }) => {
+  // Memoize the callback to avoid redefining it on every render
+  const handleViewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
       setActiveItem(viewableItems[0].key);
     }
-  };
+  }, []);
 
   return (
     <FlatList
       data={posts}
       horizontal
       keyExtractor={(item) => item.$id}
-      renderItem={({ item }) => (
-        <TrendingItem activeItem={activeItem} item={item} />
-      )}
-      // onViewableItemsChanged={viewableItemsChanged}
+      renderItem={({ item }) => <TrendingItem activeItem={activeItem} item={item} />}
+      onViewableItemsChanged={handleViewableItemsChanged} // Use the memoized callback
       viewabilityConfig={{
         itemVisiblePercentThreshold: 70,
       }}
@@ -120,13 +123,13 @@ const Trending = ({ posts }) => {
 export default Trending;
 
 // Inline styles
-const styles = StyleSheet.create({
+const styles = {
   videoContainer: {
-    width: 208, // w-52 (52 * 4 = 208)
-    height: 288, // h-72 (72 * 4 = 288)
+    width: 208, // Adjusted to match your design (52 * 4)
+    height: 288, // Adjusted to match your design (72 * 4)
     borderRadius: 33,
-    marginTop: 12, // mt-3 (3 * 4 = 12)
-    backgroundColor: "rgba(255, 255, 255, 0.1)", // bg-white/10
+    marginTop: 12, // Adjusted to match your design (3 * 4)
+    backgroundColor: "rgba(255, 255, 255, 0.1)", // Fixed invalid CSS value
     overflow: "hidden",
   },
   video: {
@@ -165,4 +168,4 @@ const styles = StyleSheet.create({
     height: 48, // h-12 (12 * 4 = 48)
     position: "absolute",
   },
-});
+};
