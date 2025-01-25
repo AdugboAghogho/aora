@@ -120,7 +120,6 @@ const Trending = ({ posts }) => {
   );
 };
 
-
 export default Trending;
 
 // Inline styles
