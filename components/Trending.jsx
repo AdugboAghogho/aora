@@ -96,6 +96,7 @@ const TrendingItem = ({ activeItem, item }) => {
 };
 
 
+
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]?.$id);
 
