@@ -36,7 +36,7 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
   };
 
   return (
-    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", paddingBottom: 22 }}>
+    <View style={{ flex: 1, flexDirection: "column", alignItems: "center", paddingLeft: "1rem", paddingRight: "1rem",  marginBottom:" 3.5rem "}}>
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" }}>
         <View style={{ flex: 1, justifyContent: "center", flexDirection: "row" }}>
           <View style={{ width: 46, height: 46, borderRadius: 50, borderWidth: 1, borderColor: "#ccc", justifyContent: "center", alignItems: "center" }}>
