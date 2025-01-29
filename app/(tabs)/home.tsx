@@ -76,7 +76,7 @@ const Home = () => {
                     color: "#FFFFFF", // Tailwind's text-white
                   }}
                 >
-                   {user ? user.username : "Loading..."} 
+                  {user?.username} 
                 </Text>
               </View>
 
@@ -117,7 +117,7 @@ const Home = () => {
               </Text>
 
               
-              {/* <Trending posts={latestPosts ?? []} /> */}
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}

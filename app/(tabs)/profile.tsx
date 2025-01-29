@@ -42,7 +42,7 @@ const Profile = () => {
         ListHeaderComponent={() => (
           <View style={{ paddingHorizontal: 16, paddingTop: 24 }}> {/* Padding */}
             <TouchableOpacity onPress={handleLogout} style={{ position: "absolute", top: 16, right: 16 }}> {/* Logout button position */}
-              <Image source={icons.logout} resizeMode="contain" style={{ width: 24, height: 24 }} />
+              <Image source={icons.logout} resizeMode="contain" style={{ width: 34, height: 34 }} />
             </TouchableOpacity>
 
             <View style={{ alignItems: "center", marginTop: 32 }}> {/* Center profile image */}
@@ -59,7 +59,7 @@ const Profile = () => {
               titleStyles={{ fontSize: 20, fontWeight: "bold" }} // Username styles
               subtitle={undefined}            />
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 16 }}> {/* InfoBoxes layout */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 16 }}> {/* InfoBoxes layout */}
               <InfoBox
                 title={posts.length || 0}
                 subtitle="Posts"
