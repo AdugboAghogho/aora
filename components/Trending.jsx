@@ -101,16 +101,16 @@ const Trending = ({ posts }) => {
 
   return (
     <FlatList
-      data={posts}
-      horizontal
-      keyExtractor={(item) => item.$id}
-      renderItem={({ item }) => <TrendingItem activeItem={activeItem} item={item} />}
-      // onViewableItemsChanged={viewableItemsChanged}
-      viewabilityConfig={{
-        itemVisiblePercentThreshold: 70,
-      }}
-      contentOffset={{ x: 170 }}
-    />
+    data={posts}
+    horizontal
+    keyExtractor={(item) => item.$id}
+    renderItem={({ item }) => <TrendingItem activeItem={activeItem} item={item} />}
+    // onViewableItemsChanged={viewableItemsChanged}
+    viewabilityConfig={{
+      itemVisiblePercentThreshold: 70,
+    }}
+    initialScrollIndex={0}
+  />
   );
 };
 
