@@ -33,9 +33,9 @@ const TrendingItem = ({ activeItem, item }) => {
 
   return (
     <Animatable.View
-      style={{ marginRight: 25, ...(activeItem === item.$id ? zoomIn : zoomOut) }}
-      animation="zoomIn"
-      duration={500}
+    style={{ marginRight: 25 }}
+    animation={activeItem === item.$id ? zoomIn : zoomOut}
+    duration={500}
     >
       {play ? (
         <Video
@@ -91,7 +91,7 @@ const TrendingItem = ({ activeItem, item }) => {
 };
 
 const Trending = ({ posts }) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+  const [activeItem, setActiveItem] = useState(posts.length > 0 ? posts[0].$id : null);
 
   const viewableItemsChanged = ({ viewableItems }) => {
     if (viewableItems.length > 0) {
