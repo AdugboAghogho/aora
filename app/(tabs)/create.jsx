@@ -10,12 +10,14 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  StyleSheet,
 } from "react-native";
 
 import { icons } from "../../constants";
 import { createVideoPost } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import { VideoView } from "expo-video";
 
 const Create = () => {
   const { user } = useGlobalContext();
@@ -58,9 +60,9 @@ const Create = () => {
 
   const submit = async () => {
     if (
-      (form.prompt === "") ||
-      (form.title === "") ||
-      !form.thumbnail ||
+      (form.prompt === "") |
+      (form.title === "") |
+      !form.thumbnail |
       !form.video
     ) {
       return Alert.alert("Please provide all fields");
@@ -89,71 +91,90 @@ const Create = () => {
     }
   };
 
+  const myStyles = StyleSheet.create({
+    extraMargin: {
+      marginTop: 20,
+    }, 
+    extraaMargin: {
+      marginTop: 14,
+    },
+    extraaaMargin: {
+      marginTop: 14,
+    }
+} );
+
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <ScrollView className="px-4 my-6">
-        <Text className="text-2xl text-white font-psemibold">Upload Video</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#161622" }}> {/* Example */}
+      <ScrollView style={{ paddingHorizontal: 16, marginTop: 24 }}> {/* Example */}
+        <Text style={{ fontSize: 24, color: "white", fontWeight: "600" }}>
+          Upload Video
+        </Text>
 
         <FormField
           title="Video Title"
           value={form.title}
           placeholder="Give your video a catchy title..."
           handleChangeText={(e) => setForm({ ...form, title: e })}
-          otherStyles="mt-10"
+          otherStyles={myStyles.extraMargin}
         />
 
-        <View className="mt-7 space-y-2">
-          <Text className="text-base text-gray-100 font-pmedium">
+        <View style={{ marginTop: 28, gap: 8 }}> {/* Example */}
+          <Text 
+           style={{
+              fontFamily: "Poppins-Regular", // Tailwind's font-pregular
+              fontSize: 18, // Tailwind's text-lg
+              color: "#CBD5E0", // Tailwind's text-gray-100
+              marginBottom: 12, // Tailwind's mb-3
+            }}
+          >
             Upload Video
           </Text>
 
-          <TouchableOpacity onPress={() => openPicker("video")}>
+          <TouchableOpacity
+            onPress={() => openPicker("video")}
+            accessibilityLabel="Upload Video"
+            accessible={true}
+          >
             {form.video ? (
-              <Video
+              <VideoView
                 source={{ uri: form.video.uri }}
-                className="w-full h-64 rounded-2xl"
+                style={{ width: "100%", height: 256, borderRadius: 8 }} /* Example */
                 useNativeControls
-                resizeMode={ResizeMode.COVER}
+                resizeMode={ResizeMode.CONTAIN}
                 isLooping
               />
             ) : (
-              <View className="w-full h-40 px-4 bg-black-100 rounded-2xl border border-black-200 flex justify-center items-center">
-                <View className="w-14 h-14 border border-dashed border-secondary-100 flex justify-center items-center">
+              <View
+                style={{
+                  width: "100%",
+                  height: 160,
+                  paddingHorizontal: 16,
+                  backgroundColor: "#black-100",
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: "#CBD5E0",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderWidth: 1,
+                    borderStyle: "dashed",
+                    borderColor: "#CBD5E0",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <Image
                     source={icons.upload}
                     resizeMode="contain"
                     alt="upload"
-                    className="w-1/2 h-1/2"
+                    style={{ width: "50%", height: "50%" }}
                   />
                 </View>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
-
-        <View className="mt-7 space-y-2">
-          <Text className="text-base text-gray-100 font-pmedium">
-            Thumbnail Image
-          </Text>
-
-          <TouchableOpacity onPress={() => openPicker("image")}>
-            {form.thumbnail ? (
-              <Image
-                source={{ uri: form.thumbnail.uri }}
-                resizeMode="cover"
-                className="w-full h-64 rounded-2xl"
-              />
-            ) : (
-              <View className="w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 flex justify-center items-center flex-row space-x-2">
-                <Image
-                  source={icons.upload}
-                  resizeMode="contain"
-                  alt="upload"
-                  className="w-5 h-5"
-                />
-                <Text className="text-sm text-gray-100 font-pmedium">
-                  Choose a file
-                </Text>
               </View>
             )}
           </TouchableOpacity>
@@ -164,13 +185,13 @@ const Create = () => {
           value={form.prompt}
           placeholder="The AI prompt of your video...."
           handleChangeText={(e) => setForm({ ...form, prompt: e })}
-          otherStyles="mt-7"
+          otherStyles={myStyles.extraaMargin}
         />
 
         <CustomButton
           title="Submit & Publish"
           handlePress={submit}
-          containerStyles="mt-7"
+          containerStyles={myStyles.extraaaMargin}
           isLoading={uploading}
         />
       </ScrollView>
