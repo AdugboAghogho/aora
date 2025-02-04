@@ -106,14 +106,17 @@ const TrendingItem = ({ activeItem, item }) => {
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]?.$id);
 
+  // Memoize the callback to avoid redefining it on every render
   const handleViewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
-      setActiveItem(viewableItems[0].key);
+      // Access the `item` property from the first viewable item
+      setActiveItem(viewableItems[0].item.$id);
     }
   }, []);
 
+  // Define a stable viewabilityConfig object
   const viewabilityConfig = {
-    itemVisiblePercentThreshold: 50, // Adjust as needed
+    itemVisiblePercentThreshold: 70,
   };
 
   return (
@@ -124,10 +127,10 @@ const Trending = ({ posts }) => {
       renderItem={({ item }) => (
         <TrendingItem activeItem={activeItem} item={item} />
       )}
-      onViewableItemsChanged={handleViewableItemsChanged}
-      viewabilityConfig={viewabilityConfig}
-      showsHorizontalScrollIndicator={false} // Hide scroll indicator
-      // contentOffset={{ x: 170 }} // Comment out for testing
+      onViewableItemsChanged={handleViewableItemsChanged} // Use the memoized callback
+      viewabilityConfig={viewabilityConfig} // Use the stable viewabilityConfig
+      contentOffset={{ x: 170 }}
+      windowSize={5} // Increase the window size to render more items off-screen
     />
   );
 };

@@ -6,6 +6,7 @@ import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllPosts, getCurrentUser, getLatestPosts } from "../../lib/appwrite";
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
+import React from "react";
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
