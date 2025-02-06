@@ -8,6 +8,7 @@ import './globals.css'; // Adjust the path if needed
 import { images } from "../constants";
 import { CustomButton, Loader } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
+import React from "react";
 
 const Welcome = () => {
   const { loading, isLogged } = useGlobalContext();
