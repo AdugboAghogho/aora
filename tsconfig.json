@@ -11,5 +11,5 @@
     "**/*.jsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "components/Trending.jsx", "components/VideoCard.jsx"  ]
+, "components/Trending.tsx", "components/VideoCard.jsx"  ]
 }

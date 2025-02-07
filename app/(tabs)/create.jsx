@@ -68,6 +68,7 @@ const Create = () => {
       return Alert.alert("Please provide all fields");
     }
 
+
     setUploading(true);
     try {
       await createVideoPost({
@@ -100,6 +101,7 @@ const Create = () => {
     },
     extraaaMargin: {
       marginTop: 14,
+      marginBottom: "30px",
     }
 } );
 
@@ -130,13 +132,14 @@ const Create = () => {
             Upload Video
           </Text>
 
+
           <TouchableOpacity
             onPress={() => openPicker("video")}
             accessibilityLabel="Upload Video"
             accessible={true}
           >
             {form.video ? (
-              <VideoView
+              <Video
                 source={{ uri: form.video.uri }}
                 style={{ width: "100%", height: 256, borderRadius: 8 }} /* Example */
                 useNativeControls
@@ -175,6 +178,63 @@ const Create = () => {
                     style={{ width: "50%", height: "50%" }}
                   />
                 </View>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        <View style={{ marginTop: 28, gap: 8 }}> {/* Example */}
+          <Text 
+           style={{
+              fontFamily: "Poppins-Regular", // Tailwind's font-pregular
+              fontSize: 18, // Tailwind's text-lg
+              color: "#CBD5E0", // Tailwind's text-gray-100
+              marginBottom: 12, // Tailwind's mb-3
+            }}
+          >
+            Thumbnail Image
+          </Text>
+
+          <TouchableOpacity
+            onPress={() => openPicker("image")}
+          >
+            {form.thumbnail ? (
+              <Image
+                source={{ uri: form.thumbnail.uri }}
+                style={{ width: "100%", height: 256, borderRadius: 8 }} /* Example */
+                resizeMode='cover'
+              />
+            ) : (
+              <View
+                style={{
+                  width: "100%",
+                  height: 160,
+                  paddingHorizontal: 16,
+                  backgroundColor: "#black-100",
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: "#CBD5E0",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={icons.upload}
+                  resizeMode="contain"
+                  alt="upload"
+                  style={{ width: "50%", height: "50%" }}
+                />
+
+                <Text 
+                  style={{
+                    fontFamily: "Poppins-Regular", // Tailwind's font-pregular
+                    fontSize: 18, // Tailwind's text-lg
+                    color: "#CBD5E0", // Tailwind's text-gray-100
+                    marginBottom: 12, // Tailwind's mb-3
+                  }}
+                >
+                  Choose a File
+                </Text>
               </View>
             )}
           </TouchableOpacity>
