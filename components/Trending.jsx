@@ -15,10 +15,10 @@ import React from "react";
 
 const zoomIn = {
   0: {
-    scale: 0.9,
+    scale: 0.8,
   },
   1: {
-    scale: 1.1,
+    scale: 1,
   },
 };
 
@@ -27,7 +27,7 @@ const zoomOut = {
     scale: 1,
   },
   1: {
-    scale: 0.9,
+    scale: 0.8,
   },
 };
 
@@ -64,7 +64,7 @@ const TrendingItem = ({ activeItem, item }) => {
           activeOpacity={0.7}
           onPress={() => setPlay(true)}
         >
-          {/* <ImageBackground
+          <ImageBackground
             source={{
               uri: item.thumbnail,
             }}
@@ -80,7 +80,7 @@ const TrendingItem = ({ activeItem, item }) => {
               shadowRadius: 4,
             }}
             resizeMode="cover"
-          /> */}
+          />
 
           <Image
             source={icons.play}
@@ -93,12 +93,13 @@ const TrendingItem = ({ activeItem, item }) => {
           />
         </TouchableOpacity>
       )}
+      
     </Animatable.View>
   );
 };
 
 const Trending = ({ posts }) => {
-  const [activeItem, setActiveItem] = useState(posts[0]);
+  const [activeItem, setActiveItem] = useState(posts[1]);
 
   const viewableItemsChanged = useCallback(({ viewableItems }) => {
     if (viewableItems.length > 0) {
@@ -109,7 +110,7 @@ const Trending = ({ posts }) => {
   return (
     <FlatList
       data={posts}
-      // horizontal
+      horizontal
       keyExtractor={(item) => item.$id}
       renderItem={({ item }) => (
         <TrendingItem activeItem={activeItem} item={item} />

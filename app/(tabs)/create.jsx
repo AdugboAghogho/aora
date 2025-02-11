@@ -33,7 +33,7 @@ const Create = () => {
     const result = await DocumentPicker.getDocumentAsync({
       type:
         selectType === "image"
-          ? ["image/png", "image/jpg"]
+          ? ["image/png", "image/jpg", "image/jpeg"]
           : ["video/mp4", "video/gif"],
     });
 
@@ -142,9 +142,9 @@ const Create = () => {
               <Video
                 source={{ uri: form.video.uri }}
                 style={{ width: "100%", height: 256, borderRadius: 8 }} /* Example */
-                useNativeControls
+                // useNativeControls
                 resizeMode={ResizeMode.CONTAIN}
-                isLooping
+                // isLooping
               />
             ) : (
               <View
