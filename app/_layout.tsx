@@ -6,6 +6,7 @@ import './output.css'; // Adjust the path if needed
 import './globals.css'; // Adjust the path if needed
 
 import GlobalProvider from "../context/GlobalProvider";
+import React from "react";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

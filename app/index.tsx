@@ -1,14 +1,14 @@
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { Redirect, router } from "expo-router";
 import { View, Text, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import './output.css'; // Adjust the path if needed
-import './globals.css'; // Adjust the path if needed
+import './output.css'; 
+import './globals.css'; 
 
 import { images } from "../constants";
 import { CustomButton, Loader } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
-import React from "react";
 
 const Welcome = () => {
   const { loading, isLogged } = useGlobalContext();

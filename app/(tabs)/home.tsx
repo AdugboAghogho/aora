@@ -82,7 +82,6 @@ const Home = () => {
               </View>
 
               <View style={{ marginTop: 6 }}>
-                {/* Tailwind's mt-1.5 */}
                 <Image
                   source={images.logoSmall}
                   style={{
@@ -102,9 +101,6 @@ const Home = () => {
                 width: "100%", // Tailwind's w-full
                 paddingTop: 20, // Tailwind's pt-5
                 paddingBottom: 32, // Tailwind's pb-8
-                // pointerEvents: 'none'
-                
-                
               }}
             >
               <Text
