@@ -36,14 +36,13 @@ const TrendingItem = ({ activeItem, item }) => {
 
   return (
     <Animatable.View
-      style={{ marginRight: 20 }} // Tailwind's mr-5
+      style={{ marginRight: 1 }} // Tailwind's mr-5
       animation={activeItem === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
       {play ? (
         <Video
           source={{ uri: item.video }}
-          //  className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
           style={{
             width: 208, // Tailwind's w-52
             height: 288, // Tailwind's h-72
@@ -104,32 +103,6 @@ const TrendingItem = ({ activeItem, item }) => {
     </Animatable.View>
   );
 };
-
-// const Trending = ({ posts }) => {
-//   const [activeItem, setActiveItem] = useState(posts[0]);
-
-//   const viewableItemsChanged = useCallback(({ viewableItems }) => {
-//     if (viewableItems.length > 0) {
-//       setActiveItem(viewableItems[0].key);
-//     }
-//   }, []);
-
-//   return (
-//     <FlatList
-//       data={posts}
-//       horizontal
-//       keyExtractor={(item) => item.$id}
-//       renderItem={({ item }) => (
-//         <TrendingItem activeItem={activeItem} item={item} />
-//       )}
-//       onViewableItemsChanged={viewableItemsChanged}
-//       viewabilityConfig={{
-//         itemVisiblePercentThreshold: 70,
-//       }}
-//       contentOffset={{ x: 170 }}
-//     />
-//   );
-// };
 
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]?.$id);

@@ -7,6 +7,7 @@ import { images } from "../../constants";
 import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import React from "react";
 
 const SignUp = () => {
   const { setUser, setIsLogged } = useGlobalContext();
@@ -93,14 +94,12 @@ const SignUp = () => {
             otherStyles={{ marginTop: 28 }}
           />
 
-          {/* <Link href="/home"> */}
-            <CustomButton
-              title="Sign Up"
-              handlePress={submit}
-              containerStyles={{ width: "100%", marginTop: 28 }}
-              isLoading={isSubmitting}
-            />
-          {/* </Link> */}
+          <CustomButton
+            title="Sign Up"
+            handlePress={submit}
+            containerStyles={{ width: "100%", marginTop: 28 }}
+            isLoading={isSubmitting}
+          />
 
           <View
             style={{

@@ -50,6 +50,8 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
             <Text style={{ fontSize: 12, color: "#ccc", numberOfLines: 1 }}>{creator}</Text>
           </View>
         </View>
+
+        
         <View style={{ paddingTop: 6 }}>
           <Image source={icons.menu} style={{ width: 25, height: 25, resizeMode: "contain" }} />
         </View>

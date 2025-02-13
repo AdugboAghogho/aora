@@ -94,7 +94,6 @@ const Home = () => {
             </View>
 
             <SearchInput initialQuery={undefined} />
-            {/* <SearchInput /> */}
 
             <View
               style={{
