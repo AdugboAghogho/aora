@@ -44,13 +44,13 @@ const TrendingItem = ({ activeItem, item }) => {
         <Video
           source={{ uri: item.video }}
           //  className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
-          // style={{
-          //   width: 208, // Tailwind's w-52
-          //   height: 288, // Tailwind's h-72
-          //   borderRadius: 33,
-          //   marginTop: 12, // Tailwind's mt-3
-          //   backgroundColor: "rgba(255, 255, 255, 0.86)", // Tailwind's bg-white/10
-          // }}
+          style={{
+            width: 208, // Tailwind's w-52
+            height: 288, // Tailwind's h-72
+            borderRadius: 33,
+            marginTop: 12, // Tailwind's mt-3
+            backgroundColor: "rgba(255, 255, 255, 0.86)", // Tailwind's bg-white/10
+          }}
           resizeMode="contain"
           useNativeControls
           shouldPlay
