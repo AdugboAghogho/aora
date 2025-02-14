@@ -149,6 +149,7 @@ const Trending = ({ posts }) => {
       viewabilityConfig={viewabilityConfig.current} // Use the stable reference
       contentOffset={{ x: 170 }}
     />
+    
   );
 };
 

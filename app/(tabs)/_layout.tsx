@@ -9,7 +9,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View style={{ alignItems: 'center', justifyContent: 'center', gap: 8, paddingTop: 40 }}>
+    <View style={{ alignItems: 'center', justifyContent: 'center', gap: 8, paddingTop: 40, }}>
         <Image
             source={icon}
             resizeMode="contain"

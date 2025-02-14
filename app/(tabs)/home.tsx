@@ -55,7 +55,7 @@ const Home = () => {
               style={{
                 flexDirection: "row", // Tailwind's flex-row
                 justifyContent: "space-between", // Tailwind's justify-between
-                alignItems: "flex-start", // Tailwind's items-start
+                alignItems: "flex-start", 
                 marginBottom: 24, // Tailwind's mb-6
               }}
             >
