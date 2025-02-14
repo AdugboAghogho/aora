@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import { ResizeMode, Video } from "expo-av";
 import * as Animatable from "react-native-animatable";
 import {
@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  StyleSheet,
 } from "react-native";
 
 import { icons } from "../constants";
@@ -31,8 +32,30 @@ const zoomOut = {
   },
 };
 
+const styles = StyleSheet.create({
+  videoContainer: {
+    width: '100%', 
+    height: '100%', 
+    borderRadius: 33, 
+    position: 'absolute', 
+    top: 0, 
+    left: 0, 
+  },
+});
+
 const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false); 
+
+  const handleVideoPress = () => {
+    setPlay(true);
+    setIsFullScreen(true); 
+  };
+
+  const handleVideoEnd = () => {
+    setPlay(false);
+    setIsFullScreen(false); 
+  };
 
   return (
     <Animatable.View
@@ -41,34 +64,29 @@ const TrendingItem = ({ activeItem, item }) => {
       duration={500}
     >
       {play ? (
-        <Video
-          source={{ uri: item.video }}
-          style={{
-            width: 208, // Tailwind's w-52
-            height: 288, // Tailwind's h-72
-            borderRadius: 33,
-            marginTop: 12, // Tailwind's mt-3
-            backgroundColor: "rgba(255, 255, 255, 0.86)", // Tailwind's bg-white/10
-          }}
-          resizeMode="contain"
-          useNativeControls
-          shouldPlay
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
-          }}
-          
-        />
+        <View style={[StyleSheet.absoluteFill, { backgroundColor: 'black' }]}> 
+          <Video 
+            source={{ uri: item.video }}
+            style={styles.videoContainer} 
+            resizeMode={ResizeMode.contain} 
+            shouldPlay 
+            isLooping={false} 
+            onPlaybackStatusUpdate={(status) => {
+              if (status.didJustFinish) {
+                handleVideoEnd(); 
+              }
+            }}
+          />
+        </View>
       ) : (
         <TouchableOpacity
           style={{
             justifyContent: "center",
             alignItems: "center",
             position: "relative",
-          }} 
+          }}
           activeOpacity={0.7}
-          onPress={() => setPlay(true)}
+          onPress={handleVideoPress}
         >
           <ImageBackground
             source={{
@@ -99,7 +117,6 @@ const TrendingItem = ({ activeItem, item }) => {
           />
         </TouchableOpacity>
       )}
-      
     </Animatable.View>
   );
 };
