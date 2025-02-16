@@ -10,14 +10,19 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "package": "com.jsm_kelvin.aora"
+      "package": "com.jsm_kelvin.aora",
+      "bundleIdentifier": "aora",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "package": "com.jsm_kelvin.aora"        
-      }
+        "package": "com.jsm_kelvin.aora"
+      },
+      "package": "com.kelvin_3424.Aora"
     },
     "web": {
       "bundler": "metro",
@@ -26,27 +31,34 @@
       "package": "com.jsm_kelvin.aora"
     },
     "plugins": [
-  "expo-router",
-  [
-    "expo-splash-screen",
-    {
-      "image": "./assets/images/logo1.png",
-      "imageWidth": 200,
-      "resizeMode": "contain",
-      "backgroundColor": "#161622"
-    }
-  ],
-  [
-    "expo-video",
-    {
-      "supportsBackgroundPlayback": true,
-      "supportsPictureInPicture": true
-    }
-  ]
-],
-
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo1.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#161622"
+        }
+      ],
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "12f40ddc-ba5c-4e88-8c4b-a62eb57a882c"
+      }
     }
   }
 }
